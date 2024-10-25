@@ -1,0 +1,32 @@
+{
+  "name": "ideanest-qualification-task",
+  "version": "1.0.0",
+  "description": "A RESTful API built with Express and TypeScript to manage organizations data, featuring CRUD operations on the Organization entity with user authentication. Designed for deployment on Vercel and containerized with Docker for consistent, scalable, and secure backend management of organization data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "start": "node ./build/index.js",
+    "dev": "nodemon ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayaarragab/ideanest-qualification-task.git"
+  },
+  "author": "ayaarragab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayaarragab/ideanest-qualification-task/issues"
+  },
+  "homepage": "https://github.com/ayaarragab/ideanest-qualification-task#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
