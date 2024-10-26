@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ideanest-task';
+const mongoUri = process.env.MONGODB_URI || 'mongodb://mongo:27017/ideanest-task';
 
 export async function connectToDatabase(): Promise<void> {
   try {
