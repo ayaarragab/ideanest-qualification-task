@@ -4,7 +4,7 @@
   "description": "A RESTful API built with Express and TypeScript to manage organizations data, featuring CRUD operations on the Organization entity with user authentication. Designed for deployment on Vercel and containerized with Docker for consistent, scalable, and secure backend management of organization data.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc --build",
     "start": "node ./build/index.js",
     "dev": "nodemon ./src/index.ts"
@@ -32,9 +32,14 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.7",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }
