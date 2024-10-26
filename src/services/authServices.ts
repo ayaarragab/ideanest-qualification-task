@@ -2,25 +2,35 @@ import { createJWT, hashPassword, comparePasswords, verifyRefreshToken } from ".
 import User from "../models/user";
 
 export const signupUser = async (userData: { name: string, email: string, password: string }) => {
-  const { name, email, password } = userData;
+  try {
+    const { name, email, password } = userData;
+    const hashedPassword = await hashPassword(password);
 
-  const hashedPassword = await hashPassword(password);
-
-  const newUser = await User.create({ name, email, password: hashedPassword });
-
-  const access_token = createJWT(
-    { id: String(newUser._id), email: newUser.email },
-    "access",
-    "15m" // Access token expires in 15 minutes
-  );
-
-  const refresh_token = createJWT(
-    { id: String(newUser._id), email: newUser.email },
-    "refresh",
-    "7d"
-  );
-
-  return { user: newUser, access_token, refresh_token };
+    try {
+      const isExist = await User.findOne({email});
+      if (isExist) {
+        return 'Email already exists';
+      }
+      const newUser = await User.create({ name, email, password: hashedPassword });
+    
+      const access_token = createJWT(
+        { id: String(newUser._id), email: newUser.email },
+        "access",
+        "15m"
+      );
+    
+      const refresh_token = createJWT(
+        { id: String(newUser._id), email: newUser.email },
+        "refresh",
+        "7d"
+      );
+    // redis
+    } catch (error) {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
 };
 
 export const signinUser = async (userData: { email: string, password: string }) => {
