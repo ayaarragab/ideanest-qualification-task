@@ -41,7 +41,7 @@ export const signinUser = async (userData: { email: string, password: string }) 
   if (!user) {
     throw new Error("User not found");
   }
-
+  
   const isPasswordValid = await comparePasswords(password, user.password);
 
   if (!isPasswordValid) {
