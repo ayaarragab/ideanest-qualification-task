@@ -1,9 +1,9 @@
 import Organization from "../models/organization";
 import User from "../models/user";
 import { IUser } from "../models/user";
-import mongoose from "mongoose";
 
-export const createOrg = async (organizationData: {name: string, description: string}) => {
+
+export const createOrg = async (organizationData: { name: string, description: string }) => {
     try {
         const organization = await Organization.create({ name: organizationData.name, description: organizationData.description });
         return organization.id;
@@ -15,7 +15,7 @@ export const createOrg = async (organizationData: {name: string, description: st
 export const getOrg = async (organizationId: string) => {
     try {
         const organization = await Organization.findById(organizationId);
-        
+
         if (!organization) {
             return false;
         }
@@ -53,10 +53,9 @@ export const getOrg = async (organizationId: string) => {
     }
 };
 
-
 export const getAllOrg = async () => {
     const organizations = await Organization.find({});
-    
+
     const organizationsContent = await Promise.all(
         organizations.map(async (organization) => {
             const org = await getOrg(organization.id);
@@ -67,17 +66,17 @@ export const getAllOrg = async () => {
     return organizationsContent.filter(org => org !== null);
 };
 
-export const updateOrg = async (organizationId: string, updateData: {name?: string, description?: string}) => {
+export const updateOrg = async (organizationId: string, updateData: { name?: string, description?: string }) => {
     try {
         const organization = await Organization.findByIdAndUpdate(
-            organizationId, 
-            { $set: updateData }, 
+            organizationId,
+            { $set: updateData },
             { new: true }
         );
         if (organization) {
             return {
-                organization_id: organization.id, 
-                name: organization.name, 
+                organization_id: organization.id,
+                name: organization.name,
                 description: organization.description
             };
         }
@@ -88,7 +87,7 @@ export const updateOrg = async (organizationId: string, updateData: {name?: stri
     }
 }
 
-export const deleteOrg =  async (organizationId: string) => {
+export const deleteOrg = async (organizationId: string) => {
     try {
         const organization = await Organization.findByIdAndDelete(organizationId);
         return true;

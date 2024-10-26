@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { signin, signup, refreshTokenrequest } from '../controllers/authController'
-import { validateInputSignup, validateInputSignin, validateRefreshToken, validateUserEmail , validateOrganization, validateOrganizationUpdate } from '../middlewares/validateBodyInputs';
+import { validateInputSignup, validateInputSignin, validateRefreshToken, validateUserEmail, validateOrganization, validateOrganizationUpdate } from '../middlewares/validateBodyInputs';
 import { handleValidationErrors } from '../middlewares/validationErrorsHandle';
 import { emailExists, orgExists } from '../middlewares/validationErrorsHandle';
 import { isAuthorized } from '../middlewares/validateAuthorization';

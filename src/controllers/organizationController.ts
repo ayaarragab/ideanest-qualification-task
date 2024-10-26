@@ -18,7 +18,7 @@ export const getOrganization = async (request: Request<{ organization_id: string
       response.status(200).json(organization);
     }
     else {
-      response.status(404).json({message: "This organization doesn't exist"});
+      response.status(404).json({ message: "This organization doesn't exist" });
     }
   } catch (error) {
     serverErrorsHandler(response, error);
@@ -44,7 +44,7 @@ export const updateOrganization = async (request: Request<{ organization_id: str
     if (organization) {
       response.status(200).json(organization);
     } else {
-      response.status(404).json({message: 'This organization does not exist'});
+      response.status(404).json({ message: 'This organization does not exist' });
     }
   } catch (error) {
     serverErrorsHandler(response, error);
@@ -54,7 +54,7 @@ export const updateOrganization = async (request: Request<{ organization_id: str
 export const deleteOrganization = async (request: Request<{ organization_id: string }, {}, {}>, response: Response) => {
   try {
     await deleteOrg(request.params.organization_id);
-    response.status(200).json({message: 'Organization deleted successfully'});
+    response.status(200).json({ message: 'Organization deleted successfully' });
   } catch (error) {
     serverErrorsHandler(response, error);
   }
@@ -63,7 +63,7 @@ export const deleteOrganization = async (request: Request<{ organization_id: str
 export const inviteUsereToOrganization = async (request: Request<{ organization_id: string }, {}, { user_email: string }>, response: Response) => {
   try {
     await inviteUserToOrg(request.params.organization_id, request.body.user_email);
-    response.status(200).json({message: 'User invited successfully to the organization'});
+    response.status(200).json({ message: 'User invited successfully to the organization' });
   } catch (error) {
     serverErrorsHandler(response, error);
   }

@@ -7,24 +7,24 @@ export const signupUser = async (userData: { name: string, email: string, passwo
     const hashedPassword = await hashPassword(password);
 
     try {
-      const isExist = await User.findOne({email});
+      const isExist = await User.findOne({ email });
       if (isExist) {
         return 'Email already exists';
       }
       const newUser = await User.create({ name, email, password: hashedPassword });
-    
+
       const access_token = createJWT(
         { id: String(newUser._id), email: newUser.email },
         "access",
         "15m"
       );
-    
+
       const refresh_token = createJWT(
         { id: String(newUser._id), email: newUser.email },
         "refresh",
         "7d"
       );
-    // redis
+      // redis
     } catch (error) {
       return false;
     }
@@ -41,7 +41,7 @@ export const signinUser = async (userData: { email: string, password: string }) 
   if (!user) {
     throw new Error("User not found");
   }
-  
+
   const isPasswordValid = await comparePasswords(password, user.password);
 
   if (!isPasswordValid) {
