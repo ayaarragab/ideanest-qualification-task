@@ -10,24 +10,10 @@ To run the Ideanest API, follow these steps:
     cd ideanest-qualification-task
     ```
 
-2. **Install dependencies:**
+
+2. **Run the application:**
     ```sh
-    npm install
-    ```
-
-3. **Set up environment variables:**
-    Create a `.env` file in the root directory and add the following variables:
-    ```env
-    PORT=8080
-    DATABASE_URL=your_database_connection_string
-    JWT_SECRET=your_jwt_secret
-    REFRESH_TOKEN_SECRET=your_refresh_jwt_secret
-
-    ```
-
-4. **Run the application:**
-    ```sh
-    npm run dev
+    docker-compose up
     ```
 
 5. **Access the API:**
@@ -39,7 +25,6 @@ Now you can start using the Ideanest API to manage your company data.
 
 - [Authentication](#authentication)
 - [Endpoints](#endpoints)
-- [Error Codes](#error-codes)
 
 ## Authentication
 
@@ -50,3 +35,195 @@ To access the API, you must include a valid JWT Token in the header. Register to
 Authorization: Bearer YOUR_TOKEN
 
 ## Endpoints
+
+### Auth Endpoints
+
+#### Sign Up
+
+**POST** `/signup`
+
+##### Request body
+
+```json
+{
+    "email": "<email>",
+    "password": "<password>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "You've signed up successfully.",
+    "token": "authorization token",
+    "data": {
+        // user object
+    }
+}
+```
+
+#### Sign In
+
+**POST** `/signin`
+
+##### Request body
+
+```json
+{
+    "email": "<email>",
+    "password": "<password>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "You've signed in successfully.",
+    "token": "authorization token",
+    "data": {
+        // user object
+    }
+}
+```
+
+#### Refresh Token
+
+**POST** `/refresh-token`
+
+##### Request body
+
+```json
+{
+    "refreshToken": "<refresh_token>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "Token refreshed successfully.",
+    "token": "new authorization token"
+}
+```
+
+### Organization Endpoints
+
+#### Create Organization
+
+**POST** `/organization`
+
+##### Request body
+
+```json
+{
+    "name": "<organization_name>",
+    "description": "<organization_description>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "Organization created successfully.",
+    "data": {
+        // organization object
+    }
+}
+```
+
+#### Get Organization
+
+**GET** `/organization/:organization_id`
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        // organization object
+    }
+}
+```
+
+#### Get All Organizations
+
+**GET** `/organization`
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "data": [
+        // array of organization objects
+    ]
+}
+```
+
+#### Update Organization
+
+**PUT** `/organization/:organization_id`
+
+##### Request body
+
+```json
+{
+    "name": "<new_organization_name>",
+    "description": "<new_organization_description>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "Organization updated successfully.",
+    "data": {
+        // updated organization object
+    }
+}
+```
+
+#### Delete Organization
+
+**DELETE** `/organization/:organization_id`
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "Organization deleted successfully."
+}
+```
+
+#### Invite User to Organization
+
+**POST** `/organization/:organization_id/invite`
+
+##### Request body
+
+```json
+{
+    "email": "<user_email>"
+}
+```
+
+##### Response
+
+```json
+{
+    "status": "success",
+    "message": "User invited successfully."
+}
+```
