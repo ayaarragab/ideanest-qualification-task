@@ -11,9 +11,10 @@ export const createOrg = async (organizationData: {name: string, description: st
     }
 }
 
-export const getOrg = async(organizationId: string) => {
+export const getOrg = async (organizationId: string) => {
     try {
         const organization = await Organization.findById(organizationId);
+        
         if (!organization) {
             return false;
         }
@@ -46,3 +47,16 @@ export const getOrg = async(organizationId: string) => {
         return false;
     }
 }
+
+export const getAllOrg = async () => {
+    const organizations = await Organization.find({});
+    
+    const organizationsContent = await Promise.all(
+        organizations.map(async (organization) => {
+            const org = await getOrg(organization.id);
+            return org ? org : null;
+        })
+    );
+
+    return organizationsContent.filter(org => org !== null);
+};

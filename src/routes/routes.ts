@@ -4,7 +4,7 @@ import { validateInputSignup, validateInputSignin, validateRefreshToken, validat
 import { handleValidationErrors } from '../middlewares/validationErrorsHandle';
 import { emailExists, orgExists } from '../middlewares/validationErrorsHandle';
 import { isAuthorized } from '../middlewares/validateAuthorization';
-import { createOrganization, getOrganization } from '../controllers/organizationController';
+import { createOrganization, getOrganization, getAllOrganizations } from '../controllers/organizationController';
 import { validateOrganizationId } from '../middlewares/validateParamsInputs';
 
 export const router = Router();
@@ -22,3 +22,4 @@ router.post('/refresh-token', validateRefreshToken, handleValidationErrors, refr
  */
 router.post('/organization', isAuthorized, validateOrganization, orgExists, handleValidationErrors, createOrganization)
 router.get('/organization/:organization_id', isAuthorized, validateOrganizationId, handleValidationErrors, getOrganization)
+router.get('/organization', isAuthorized, getAllOrganizations)
