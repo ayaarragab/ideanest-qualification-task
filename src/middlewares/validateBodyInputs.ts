@@ -56,3 +56,22 @@ export const validateOrganization = [
     .isLength({ min: 10, max: 200 })
     .withMessage('Description must be between 10 and 200 characters')
 ];
+
+export const validateOrganizationUpdate = [
+  body('name')
+    .optional()
+    .isString()
+    .withMessage('Name should be a string'),
+
+  body('description')
+    .optional()
+    .isString()
+    .withMessage('Description should be a string')
+    .isLength({ min: 10, max: 200 })
+    .withMessage('Description must be between 10 and 200 characters')
+];
+
+export const validateUserEmail = [
+  body('user_email')
+    .notEmpty().isString().isEmail().withMessage('Email must be a valid email string'),
+];

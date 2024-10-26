@@ -1,10 +1,10 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 import { IUser } from './user';
 
-interface IOrganization extends Document {
+export interface IOrganization extends Document {
     name: string;
     description: string;
-    organization_members: Array<IUser>;
+    organization_members: Array<Types.ObjectId>;
     createdAt: Date;
 }
 
