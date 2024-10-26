@@ -8,60 +8,60 @@ const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "d84ff23021e915
 
 
 export const createJWT = (user: { id: string, email: string }, accessOrRefresh: string, expiresIn: string) => {
-    if (accessOrRefresh == 'access') {
-        const token = jwt.sign(
-            { id: user.id, email: user.email },
-            JWT_SECRET,
-            { expiresIn }
-        );
-        return token;
-    }
-    else if (accessOrRefresh == 'refresh') {
-        const token = jwt.sign(
-            { id: user.id, email: user.email },
-            REFRESH_TOKEN_SECRET,
-            { expiresIn }
-        );
-        return token; 
-    }
+  if (accessOrRefresh == 'access') {
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      JWT_SECRET,
+      { expiresIn }
+    );
+    return token;
+  }
+  else if (accessOrRefresh == 'refresh') {
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      REFRESH_TOKEN_SECRET,
+      { expiresIn }
+    );
+    return token;
+  }
 };
 
 export const verifyJWT = async (token: string) => {
-        try {
-            const userJWT: jwt.JwtPayload | string = jwt.verify(token, process.env.JWT_SECRET || JWT_SECRET);
-            if (typeof userJWT !== 'string' && userJWT.id) {
-                try {
-                    const user = await User.findById(userJWT.id);
-                    if (user) return user;
-                } catch (error) {
-                    console.log('user not found');
-                    return false;
-                }
-            }
-        } catch (error) {
-            console.log('unknown token not found');
-            return false;
-        }
+  try {
+    const userJWT: jwt.JwtPayload | string = jwt.verify(token, process.env.JWT_SECRET || JWT_SECRET);
+    if (typeof userJWT !== 'string' && userJWT.id) {
+      try {
+        const user = await User.findById(userJWT.id);
+        if (user) return user;
+      } catch (error) {
+        console.log('user not found');
+        return false;
+      }
+    }
+  } catch (error) {
+    console.log('unknown token not found');
+    return false;
+  }
 }
 
 export const hashPassword = async (password: string) => {
-        return await bcrypt.hash(password, 5);
+  return await bcrypt.hash(password, 5);
 }
 
 export const comparePasswords = (passwordPlain: string, hashedPassword: string) => {
-    return bcrypt.compare(passwordPlain, hashedPassword);
+  return bcrypt.compare(passwordPlain, hashedPassword);
 }
 
 
 export const verifyRefreshToken = (refresh_token: string) => {
-    if (!refresh_token) {
-        throw new Error("Refresh token is required");
-    }
+  if (!refresh_token) {
+    throw new Error("Refresh token is required");
+  }
 
-    try {
-        const decoded = jwt.verify(refresh_token, REFRESH_TOKEN_SECRET) as { id: string, email: string };
-        return decoded;
-    } catch (error) {
-        throw new Error("Invalid or expired refresh token");
-    }
+  try {
+    const decoded = jwt.verify(refresh_token, REFRESH_TOKEN_SECRET) as { id: string, email: string };
+    return decoded;
+  } catch (error) {
+    throw new Error("Invalid or expired refresh token");
+  }
 };

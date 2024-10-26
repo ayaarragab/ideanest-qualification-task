@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 
 app.use('/api', router);
 
-app.listen(PORT, async() => {
-    await connectToDatabase();
-    console.log(`Hello on port ${PORT}`);
+app.listen(PORT, async () => {
+  await connectToDatabase();
+  console.log(`Hello on port ${PORT}`);
 })
